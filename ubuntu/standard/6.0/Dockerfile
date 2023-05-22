@@ -385,7 +385,7 @@ ENTRYPOINT ["/usr/local/bin/dockerd-entrypoint.sh"]
 
 #=====================Install chrome driver===========
 FROM std_v6 AS chrome_driver
-echo Installing Chrome
+echo "Installing Chrome"
       # # https://github.com/aws/aws-codebuild-docker-images/blob/48b53e25cf36dcb1e0b124bc7bebfb342d161b91/ubuntu/standard/5.0/Dockerfile#L74
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
 echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google.list
