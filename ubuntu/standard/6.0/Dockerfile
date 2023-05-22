@@ -394,13 +394,13 @@ RUN apt-get -qq install -y google-chrome-stable
 RUN google-chrome --version
       # # https://github.com/aws/aws-codebuild-docker-images/blob/48b53e25cf36dcb1e0b124bc7bebfb342d161b91/ubuntu/standard/5.0/Dockerfile#L82
 RUN CHROME_VERSION=`google-chrome --version | awk -F '[ .]' '{print $3"."$4"."$5}'`
-RUN CHROME_DRIVER_VERSION=`wget -qO- chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION`
-RUN wget -qO /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+RUN CHROME_DRIVER_VERSION=`wget -qO- chromedriver.storage.googleapis.com/LATEST_RELEASE_114.0.5735`
+RUN wget -qO /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/114.0.5735.16/chromedriver_linux64.zip
 RUN unzip -q /tmp/chromedriver_linux64.zip -d /opt
 RUN rm /tmp/chromedriver_linux64.zip
-RUN mv /opt/chromedriver /opt/chromedriver-$CHROME_DRIVER_VERSION
-RUN chmod 755 /opt/chromedriver-$CHROME_DRIVER_VERSION
-RUN ln -s /opt/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+RUN mv /opt/chromedriver /opt/chromedriver-114.0.5735.16
+RUN chmod 755 /opt/chromedriver-114.0.5735.16
+RUN ln -s /opt/chromedriver-114.0.5735.16 /usr/bin/chromedriver
 RUN chromedriver --version
 
 #=====================Cache NPM packages===============
