@@ -385,23 +385,23 @@ ENTRYPOINT ["/usr/local/bin/dockerd-entrypoint.sh"]
 
 #=====================Install chrome driver===========
 FROM std_v6 AS chrome_driver
-echo "Installing Chrome"
+RUN echo "Installing Chrome"
       # # https://github.com/aws/aws-codebuild-docker-images/blob/48b53e25cf36dcb1e0b124bc7bebfb342d161b91/ubuntu/standard/5.0/Dockerfile#L74
-wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google.list
-apt-get -qq update
-apt-get -qq install -y google-chrome-stable
-google-chrome --version
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google.list
+RUN apt-get -qq update
+RUN apt-get -qq install -y google-chrome-stable
+RUN google-chrome --version
       # # https://github.com/aws/aws-codebuild-docker-images/blob/48b53e25cf36dcb1e0b124bc7bebfb342d161b91/ubuntu/standard/5.0/Dockerfile#L82
-CHROME_VERSION=`google-chrome --version | awk -F '[ .]' '{print $3"."$4"."$5}'`
-CHROME_DRIVER_VERSION=`wget -qO- chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION`
-wget -qO /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
-unzip -q /tmp/chromedriver_linux64.zip -d /opt
-rm /tmp/chromedriver_linux64.zip
-mv /opt/chromedriver /opt/chromedriver-$CHROME_DRIVER_VERSION
-chmod 755 /opt/chromedriver-$CHROME_DRIVER_VERSION
-ln -s /opt/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
-chromedriver --version
+RUN CHROME_VERSION=`google-chrome --version | awk -F '[ .]' '{print $3"."$4"."$5}'`
+RUN CHROME_DRIVER_VERSION=`wget -qO- chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION`
+RUN wget -qO /tmp/chromedriver_linux64.zip https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+RUN unzip -q /tmp/chromedriver_linux64.zip -d /opt
+RUN rm /tmp/chromedriver_linux64.zip
+RUN mv /opt/chromedriver /opt/chromedriver-$CHROME_DRIVER_VERSION
+RUN chmod 755 /opt/chromedriver-$CHROME_DRIVER_VERSION
+RUN ln -s /opt/chromedriver-$CHROME_DRIVER_VERSION /usr/bin/chromedriver
+RUN chromedriver --version
 
 #=====================Cache NPM packages===============
 FROM chrome_driver AS npm_cache
