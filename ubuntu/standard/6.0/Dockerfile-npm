@@ -1,3 +1,5 @@
 FROM 844041478127.dkr.ecr.us-east-1.amazonaws.com/experiment-1:ubuntu60 AS base
 
+RUN mkdir -p /app
+WORKDIR '/app'
 RUN npm install --force lodash@latest chalk@latest request@latest commander@latest react@latest express@latest debug@latest async@latest fs-extra@latest moment@latest
